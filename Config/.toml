@@ -1,0 +1,89 @@
+# Contains variables for functions to use later
+
+[elements]
+login.email = "LoginEmail"
+login.password = "LoginPassword"
+login.btn = "loginbutton"
+
+[var] 
+# For Variants page
+attr_tab = "#productvariant-edit li:nth-child(3)"# Used to get to the variants tab
+get_size_page = "#productvariantattributes-grid tr td:nth-child(7) [href]" # use to click `View/Edit value (Total: 22)` where size is
+size.size_name = "#productvariantattribute-form tr td:nth-of-type(2)"  # Size such as 4'x5' Ultracloth
+size.display_order = "#productvariantattribute-form tr td:nth-of-type(8)"  # Display order used to sort
+size.edit_btn = "#productvariantattribute-form tr td:nth-of-type(10)"  # Display order used to sort
+size.edit_btn_from_parent = 'td:nth-of-type(10)'
+size.delete_btn = "#productvariantattribute-form tr td:nth-of-type(11)"  # Display order used to sort
+size.delete_btn_from_parent = 'td:nth-of-type(11)'
+size.row = "#productvariantattribute-form tr"  # Display order used to sort
+
+# New window to change Size attributes after click the edit Button
+size.window.order = "DisplayOrder" # this is an id and will use driver.find_element_by_id()
+size.window.save_btn = "button[type=submit]"
+
+combination.size_name = "#attributecombinations-grid tr td:nth-of-type(1)"  # Size such as 4'x5' Ultracloth
+# combination.edit_btn = "#attributecombinations-grid tr td:nth-of-type(10)"  # Display order used to sort
+# combination.edit_btn_from_parent = 'td:nth-of-type(10)'
+combination.delete_btn = "#attributecombinations-grid tr td:nth-of-type(5)"  # Display order used to sort
+combination.delete_btn_from_parent = 'td:nth-of-type(5)'
+combination.row = "#attributecombinations-grid tr"  # Display order used to sort
+
+# New window to change Size attributes after click the edit Button
+combination.window.order = "DisplayOrder" # this is an id and will use driver.find_element_by_id()
+combination.window.save_btn = "button[type=submit]"
+
+[search_results]
+# For Search results page
+title = '.product-title a' # results(s) from the query, can be more than one if a multiple products have the same name, or there is a Floor version
+
+[designer_code]
+# Used `regex` to convert from json to this 
+# Text:  "lori nordstrorm" : ["82100823,82100844"],
+# Find: "(\w+)\W(\w+)\W{1,}"(\d{4,}),(\d{4,})"\W,
+# Replace: $1_$2.regular = "$3" # Regular\n$1_$2.new_fab = "$4" # NewFab
+lori_nordstrorm.regular = "82100823" # Regular
+lori_nordstrorm.new_fab = "82100844" # NewFab
+jim_churchill.regular = "82100824" # Regular
+jim_churchill.new_fab = "82100843" # NewFab
+annie_marie.regular = "82100825" # Regular
+annie_marie.new_fab = "82100834" # NewFab
+cindy_romano.regular = "82100826" # Regular
+cindy_romano.new_fab = "82100835" # NewFab
+chris_fritchie.regular = "82100869" # Regular
+chris_fritchie.new_fab = "82100870" # Regular
+dennis_hammon.regular = "82100827" # Regular
+dennis_hammon.new_fab = "82100836" # NewFab
+doran_wilson.regular = "82100828" # Regular
+doran_wilson.new_fab = "82100837" # NewFab
+kmc.regular = "82100867" # Regular
+kmc.new_fab = "82100868" # NewFab
+mark_lane.regular = "82100829" # Regular
+mark_lane.new_fab = "82100838" # NewFab
+michael_mowbray.regular = "82100830" # Regular
+michael_mowbray.new_fab = "82100839" # NewFab
+nancy_emmerich.regular = "82100831" # Regular
+nancy_emmerich.new_fab = "82100840" # NewFab
+serendipity.regular = "82100871" # NewFab
+serendipity.new_fab = "82100872" # NewFab
+tessa_cole.regular = "82100832" # Regular
+tessa_cole.new_fab = "82100841" # NewFab
+thom_rouse.regular = "82100833" # Regular
+thom_rouse.new_fab = "82100842" # NewFab
+christie_newell.regular = "82100846" # Regular
+christie_newell.new_fab = "82100845" # NewFab
+cheri_hammon.regular = "82100847" # Regular
+cheri_hammon.new_fab = "82100848" # NewFab
+jeni_b.regular = "82100849" # Regular
+jeni_b.new_fab = "82100850" # NewFab
+molly_long.regular = "82100851" # Regular
+molly_long.new_fab = "82100852" # NewFab
+mitch_green.regular = "82100853" # Regular
+mitch_green.new_fab = "82100854" # NewFab
+paul_kestel.regular = "82100854" # Regular
+paul_kestel.new_fab = "82100856" # NewFab
+chris_garcia.regular = "82100857" # Regular
+chris_garcia.new_fab = "82100858" # NewFab
+barbara_yonts.regular = "82100869" # Regular
+barbara_yonts.new_fab = "82100864" # NewFab
+boler.regular = "82100867" # NewFab
+boler.new_fab = "82100866" # NewFab

@@ -1,0 +1,70 @@
+ {
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+      "json": {
+        "class": "pythonjsonlogger.jsonlogger.JsonFormatter",
+        "datefmt": "%Y-%m-%d %H:%M:%S",   
+        "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(lineno)s - %(processName)s - %(funcName)s - %(module)s - %(pathname)s"
+      }, 
+      "brief": {
+        "class": "logging.Formatter",
+        "datefmt": "%I:%M:%S",
+        "format": "%(levelname)-8s; %(name)-15s; %(message)s"
+      },
+      "single-line": {
+        "class": "logging.Formatter",
+        "datefmt": "%I:%M:%S",
+        "format": "%(levelname)-8s; %(asctime)s; %(name)-15s; %(module)s:%(funcName)s;%(lineno)d: %(message)s"
+      },
+      "multi-process": {
+        "class": "logging.Formatter",
+        "datefmt": "%I:%M:%S",
+        "format": "%(levelname)-8s; [%(process)d]; %(name)-15s; %(module)s:%(funcName)s;%(lineno)d: %(message)s"
+      },
+      "multi-thread": {
+        "class": "logging.Formatter",
+        "datefmt": "%I:%M:%S",
+        "format": "%(levelname)-8s; %(threadName)s; %(name)-15s; %(module)s:%(funcName)s;%(lineno)d: %(message)s"
+      },
+      "verbose": {
+        "class": "logging.Formatter",
+        "datefmt": "%I:%M:%S",
+        "format": "%(levelname)-8s; [%(process)d]; %(threadName)s; %(name)-15s; %(module)s:%(funcName)s;%(lineno)d: %(message)s"
+      },
+      "multiline": {
+        "class": "logging.Formatter",
+        "format": "Level: %(levelname)s\nTime: %(asctime)s\nLine: %(lineno)d\nThread: %(threadName)s\nLogger: %(name)s\nPath: %(pathname)s:%(lineno)d\nFunction :%(funcName)s\nMessage: %(message)s\n"
+      }
+    },
+    "handlers": {
+      "console":{
+        "level": "INFO",
+        "class": "logging.StreamHandler",
+        "formatter": "multiline",
+        "stream" : "ext://sys.stdout"
+      },
+      "file_handler": {
+        "level": "INFO",
+        "class": "logging.FileHandler",
+        "formatter": "json",
+        "filename": "\\\\work\\tech\\Henry\\Programs\\Python\\bgt-automate\\Logs\\Runtime {time}.log",
+        "mode": "a",
+        "encoding": "utf-8"
+      },
+      "smtp": {
+        "level": "WARN",
+        "class": "logging.handlers.SMTPHandler",
+        "formatter": "multiline",
+        "mailhost": "mail.acilab.com",
+        "fromaddr": "h.feahn@acilab.com",
+        "toaddrs": ["h.feahn@acilab.com"],
+        "subject": "Error Copying product- Backgroundtown"
+      }
+    },
+    "loggers": { },
+    "root": {
+      "handlers": ["console", "file_handler", "smtp"],
+      "level": "DEBUG"
+    }
+  }

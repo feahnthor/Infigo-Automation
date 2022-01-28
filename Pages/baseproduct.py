@@ -29,6 +29,7 @@ import logging
 import sys
 import pyautogui
 import time
+import socket
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +72,7 @@ class BaseProduct:
     self.update = Locators.update
     self.copy = Locators.copy_prod_btn
     self.terminal_recursion = 0
+    self.hostname = socket.gethostname()
 
 
   def copy_product(self):
@@ -88,7 +90,7 @@ class BaseProduct:
     try:
       click(self.copy)
     except Exception as e:
-      logger.critical(self.name, sys.stderr, f'Could not find Copy Product Button\nProduct: {self.driver.current_url} \nException: {e}' )
+      logger.warning(self.name, sys.stderr, f'Could not find Copy Product Button\nProduct: {self.driver.current_url} \nException: {e}' )
       if self.driver != None:
         kill_browser()
       sys.exit(1)
@@ -182,8 +184,12 @@ class BaseProduct:
         pyautogui.write(self.img)
         time.sleep(1)
         # onscreen = pyautogui.onScreen(794, 504)
-        pyautogui.moveTo(794, 504)
-        # pyautogui.moveTo(495, 480)
+        if self.hostname.lower() == 'aci421': # this computer has the File Explorer window show up at a different location
+          pyautogui.moveTo(794, 504)
+        elif self.hostname.lower() == 'aci426': # Tad's computer
+          pyautogui.moveTo(794, 564)
+        else:
+          pyautogui.moveTo(495, 480)
         # pyautogui.moveTo(495, 450)
         # file_upload_btn_location = pyautogui.locateOnScreen('\\\\work\\tech\\henry\\programs\\python\\bgt-automate\\file_okay_btn.png')
         # pyautogui.moveTo(1060, 800)
@@ -198,7 +204,7 @@ class BaseProduct:
           WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'qq-upload-success'))) # only appears after image has been uploaded
         except TimeoutException as e:
           self.terminal_recursion += 1
-          logger.error(f'pyautogui was not able to write the image in calling prod_img() again\nRecursion Count: {self.terminal_recursion}\nUrl: {self.current_url}')
+          logger.warn(f'pyautogui was not able to write the image in calling prod_img() again\nRecursion Count: {self.terminal_recursion}\nUrl: {self.current_url}')
           # pyautogui.getActiveWindow()
           # foo = pyautogui.getAllTitles()
           # pyautogui.getWindowsWithTitle('File Upload')
@@ -209,6 +215,26 @@ class BaseProduct:
           else:
             pass
         # https://stackoverflow.com/questions/70048615/how-to-wait-for-img-src-attribute-to-change-using-selenium-and-javascript
+      if self.img_name_variant != None: # close windows by cancelling them to avoid memory consumption
+        time.sleep(1)
+        pyautogui.write(self.img)
+        time.sleep(1)
+        # onscreen = pyautogui.onScreen(794, 504)
+        if self.hostname.lower() == 'aci421': # check computer program is working on
+          pyautogui.moveTo(794+80, 504)
+        elif self.hostname.lower() == 'aci426':
+          pyautogui.moveTo(794+80, 564)
+        else:
+          pyautogui.moveTo(495+80, 480)
+        # pyautogui.moveTo(495, 450)
+        # file_upload_btn_location = pyautogui.locateOnScreen('\\\\work\\tech\\henry\\programs\\python\\bgt-automate\\file_okay_btn.png')
+        # pyautogui.moveTo(1060, 800)
+        # btn_point = pyautogui.center(file_upload_btn_location)
+        # btn_x, btn_y = btn_point\\work\production\backgroundtown images\Serendipity\web\Kaleidoscope_8x10.jpg
+        pyautogui.click()
+        # pyautogui.click(btn_x, btn_y)
+        # pyautogui.press('enter')
+        img_upload = self.driver.find_element_by_css_selector('.uploaded-image img')
       WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'qq-upload-success'))) # only appears after image has been uploaded
       try:
         click(self.add)
@@ -219,7 +245,7 @@ class BaseProduct:
         #   get_driver().close() # close the second driver
       except Exception as e:
         click(self.add)
-        logger.critical(f'THIS IS AN ERROR THAT NEEDS TO BE RESOLVED, POSSIBLY NO IMAGE UPLOADED {e}')
+        logger.error(f'THIS IS AN ERROR THAT NEEDS TO BE RESOLVED, POSSIBLY NO IMAGE UPLOADED {e}')
         if Alert().exists():
           Alert().accept()
 
@@ -269,7 +295,7 @@ class BaseProduct:
     try:
       wait_until(Text(Locators.first_tag).exists) # wait for first element in tags to be visible
     except Exception as e:
-      logger.critical(self.name, sys.stderr, f'Could not find Copy Product Button\nProduct: {self.driver.current_url} \nException: {e}' )
+      logger.warning(self.name, sys.stderr, f'Could not find Copy Product Button\nProduct: {self.driver.current_url} \nException: {e}' )
 
     # All elements available in the tag window. Not a string but an object that references the exact element on page
     self.tag_elements = self.driver.find_elements_by_class_name(self.tag_loc)
@@ -292,7 +318,7 @@ class BaseProduct:
           click(tag_to_add)
         except Exception as e:
           # Not sure when this exception will trigger yet. Hopefully never
-          logger.error(f'Exception occurred when trying to select tag: {tag_to_add.title()}\n Product: {self.driver.current_url} \n{sys.stderr}')
+          logger.warn(f'Exception occurred when trying to select tag: {tag_to_add.title()}\n Product: {self.driver.current_url} \n{sys.stderr}')
     # Write (str) of new tags into empty field. Must save the page to keep changes using Baseproduct.save_and_edit()
     write(new_tags, into=S('.'+Locators.tag_add_text)) # comma seperated
     click('ok')

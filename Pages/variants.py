@@ -140,7 +140,7 @@ class Variants(BaseProduct): # Implements BaseProduct
         attribute_list = np.array(self.driver.find_elements_by_css_selector(m.combination.size_name))
         delete_btn_list = np.array(self.driver.find_elements_by_css_selector(m.combination.delete_btn))
       except Exception as e:
-        logger.critical(f'Unable to find size elements in order to sort them. Refreshing then trying again {e}')
+        logger.warning(f'Unable to find size elements in order to sort them. Refreshing then trying again {e}')
         WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, m.combination.size_name)))
         WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, m.combination.delete_btn)))
         attribute_list = np.array(self.driver.find_elements_by_css_selector(m.combination.size_name))
@@ -223,7 +223,7 @@ class Variants(BaseProduct): # Implements BaseProduct
     
             WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, Locators.attribute_combinations)))
     except Exception as e:
-      logger.critical(f'{self.name}\n{self.driver.current_url}\n', sys.stderr, f'Something went wrong in Variants.delete_combinations()n\nProduct: {self.driver.current_url} \nException: {e}' )
+      logger.error(f'{self.name}\n{self.driver.current_url}\n', sys.stderr, f'Something went wrong in Variants.delete_combinations()\nProduct: {self.driver.current_url} \nException: {e}' )
       pass
     variant_top = self.driver.find_element_by_id(Locators.top_of_variant_page)
     variant_top.location_once_scrolled_into_view 
@@ -550,7 +550,7 @@ class Variants(BaseProduct): # Implements BaseProduct
       
       
     except Exception as e:
-      logger.error(f'Unexpected error when in the delete_size function at {self.driver.current_url}, will try to reload then call the function again')
+      logger.warn(f'Unexpected error when in the delete_size function at {self.driver.current_url}, will try to reload then call the function again')
       # refresh()
       go_to(url)
       self.delete_size_new()
@@ -702,7 +702,7 @@ class Variants(BaseProduct): # Implements BaseProduct
         size_list = np.array(driver.find_elements_by_css_selector(m.size.size_name))
         edit_btn_list = np.array(driver.find_elements_by_css_selector(m.size.edit_btn))
       except Exception as e:
-        logger.critical(f'Unable to find size elements in order to sort them. Refreshing then trying again {e}')
+        logger.warning(f'Unable to find size elements in order to sort them. Refreshing then trying again {e}')
         WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, m.size.size_name)))
         WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, m.size.edit_btn)))
         size_list = np.array(driver.find_elements_by_css_selector(m.size.size_name))
@@ -794,7 +794,7 @@ class Variants(BaseProduct): # Implements BaseProduct
       elapsed_time = time.perf_counter() - start_time
       logger.info(f"Elapsed time for Variants sort sizes: {elapsed_time:0.4f} Seconds")
     except Exception as e:
-      logger.critical(f'Product {title}\nUnhandled exception in \\Update_product\\Pages\\variants.py while trying to sort_sizes() \n{driver.current_url}\n{e}')
+      logger.warning(f'Product {title}\nUnhandled exception in \\Update_product\\Pages\\variants.py while trying to sort_sizes() \n{driver.current_url}\n{e}')
     finally: # will always be executed, not matter if there is an error
       go_to(url)
       wait_until(Text(Locators.attribute).exists)

@@ -11,7 +11,7 @@ class DriverSetup:
   """
   Helium: https://selenium-python-helium.readthedocs.io/en/latest/api.html
   """
-  def __init__(self, url, headless=False) -> WebDriver:
+  def __init__(self, url, headless=True) -> WebDriver:
     super().__init__()
     self.url = url
     self.headless = headless

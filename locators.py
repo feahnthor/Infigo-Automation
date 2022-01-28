@@ -10,7 +10,7 @@ class Locators:
   base_floor_prod_url = 'https://backgroundtown.com/Admin/Product/Edit/2606' # Kara KMC
   email = 'Email:'
   password = 'Password:'
-  login_button = 'login'
+  login_button = 'Login'
 
 #Available product page
   product_dropdown = '#ProductVariants option' #use Select class and methods

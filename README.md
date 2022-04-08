@@ -1,6 +1,6 @@
 # ReadMe
 ## Setup
-1. Innstall required modules in `requirements.txt` by being in the base directory of this program in a terminal and typing `pip install -r requirements.txt`
+1. Install required modules in `requirements.txt` by being in the base directory of this program in a terminal and typing `pip install -r requirements.txt`
    1. Note: Selenium version must remain below `4.0` as of 1/15/2022 as `Helium 3.0.8` a Selenium wrapper does not currently support `version 4.0` or above of `Selenium`
 2. Run `test.py` to get the coordinates for the `open` button for the `Windows Explorer` window that pops up when uploading an image from https:backgroundtown.com
    1. Use these values to make the appropriate changes to, it would be better to add this to the config `.toml` file or create and `.ini` file
